@@ -1,7 +1,10 @@
 <?php
+use \kartik\datecontrol\Module;
 
 $params = require __DIR__ . '/params.php';
 $db = require __DIR__ . '/db.php';
+$db2 = require __DIR__ . '/db2.php';
+$db3 = require __DIR__ . '/db3.php';
 
 $config = [
     'id' => 'basic',
@@ -44,20 +47,8 @@ $config = [
             ],
         ],
         'db' => $db,
-    		'db2' => [
-            'class' => 'yii\db\Connection',
-            'dsn' => 'sqlsrv:Server=sql-cluster03;Database=management',
-            'username' => 'faq',
-            'password' => 'faq',
-            'charset' => 'utf8',
-        
-      			//'tablePrefix' => 'tbl_',
-            //'enableParamLogging'=>true,
-            // Schema cache options (for production environment)
-            //'enableSchemaCache' => true,
-            //'schemaCacheDuration' => 60,
-            //'schemaCache' => 'cache',
-        ],
+    	'db2' => $db2,
+        'db3' => $db3,
         'urlManager' => [
             'enablePrettyUrl' => true,
             'showScriptName' => false,

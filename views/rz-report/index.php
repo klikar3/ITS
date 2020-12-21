@@ -24,7 +24,7 @@ $this->params['breadcrumbs'][] = $this->title;
 <?php $this->renderAjax('_search',['model'=>$searchModel,]); ?>
 </div><!-- search-form -->
 
-    <p>
+    <p> <span class='btn btn-success'>
         <?= Html::a(Yii::t('app', 'Create Rz Report'), ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 

@@ -42,7 +42,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                     	return GridView::ROW_COLLAPSED;
                                 }
             										,
-            								'detail' => function ($data, $model, $key, $index) {//function ($data, $id) {
+            								'detail' => function ($data, $model, $key, $index) use ($rzSysteme,$rzKunden,$rzStandorte) {//function ($data, $id) {
             									//$cont = Mitgliederschulen::findOne($id);
             	                return Yii::$app->controller->renderPartial('_form', ['model'=>$data, 
                                               'rzSysteme' => $rzSysteme, 'rzKunden' => $rzKunden, 
