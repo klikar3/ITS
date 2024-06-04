@@ -1,0 +1,78 @@
+<?php
+
+namespace app\models;
+
+use Yii;
+
+/**
+ * This is the model class for table "rzKomponenten".
+ *
+ * @property int $id
+ * @property int $typ
+ * @property string $name
+ * @property string $desc
+ *
+ * @property RzKomponentTyp $typ0
+ * @property RzServiceKomponenten $rzServiceKomponenten
+ */
+class RzKomponenten extends \yii\db\ActiveRecord
+{
+    /**
+     * @inheritdoc
+     */
+    public static function tableName()
+    {
+        return 'rzKomponenten';
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function rules()
+    {
+        return [
+            [['typ'], 'integer'],
+            [['devicename', 'service', 'desc'], 'string'],
+            [['typ'], 'exist', 'skipOnError' => true, 'targetClass' => RzKomponentTyp::className(), 'targetAttribute' => ['typ' => 'id']],
+        ];
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function attributeLabels()
+    {
+        return [
+            'id' => Yii::t('app', 'ID'),
+            'typ' => Yii::t('app', 'Typ'),
+            'devicename' => Yii::t('app', 'Name'),
+            'service' => Yii::t('app', 'Service'),
+            'desc' => Yii::t('app', 'Desc'),
+        ];
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getTyp0()
+    {
+        return $this->hasOne(RzKomponentTyp::className(), ['id' => 'typ']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getRzServiceKomponenten()
+    {
+        return $this->hasOne(RzServiceKomponenten::className(), ['id' => 'id']);
+    }
+
+    /**
+     * @inheritdoc
+     * @return RzKomponentenQuery the active query used by this AR class.
+     */
+    public static function find()
+    {
+        return new RzKomponentenQuery(get_called_class());
+    }
+}

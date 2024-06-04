@@ -1,0 +1,94 @@
+<?php
+
+use yii\helpers\ArrayHelper;use yii\helpers\Html;
+use yii\widgets\ActiveForm;
+use kartik\datecontrol\DateControl;
+use kartik\widgets\DateTimePicker;
+
+use app\models\RzSlas;
+
+/* @var $this yii\web\View */
+/* @var $model app\models\rzSlaZeiten */
+/* @var $form yii\widgets\ActiveForm */
+
+$days = array(
+    1 => 'Montag',
+    2 => 'Dienstag',
+    3 => 'Mittwoch',
+    4 => 'Donnerstag',
+    5 => 'Freitag',
+    6 => 'Samstag',
+    7 => 'Sonntag',
+    8 => 'Mo - Fr',
+    9 => 'Mo - Sa',
+    10 => 'Täglich'
+);
+
+?>
+
+<div class="rz-sla-zeiten-form">
+
+    <?php $form = ActiveForm::begin(); ?>
+
+    <?= $form->field($model, 'slaId')->dropDownList(
+            ArrayHelper::map(RzSlas::find()->all(),'id','name'),
+            ['prompt'=>'Select...']
+        ) ?>
+
+    <?= $form->field($model, 'mandant')->textInput() ?>
+
+    <?= $form->field($model, 'wochentag')->dropDownList(
+//            ArrayHelper::map(RzSlas::find()->all(),'id','name'),
+              $days,
+            ['prompt'=>'Select...']
+        ) ?>
+
+    <?= $form->field($model, 'von')->widget(DateControl::classname(),[
+      'type'=>DateControl::FORMAT_TIME,
+    	'name' => 'von',
+      'id' => 'von',
+      'displayFormat' => 'php:H:i',
+      'saveFormat' => 'php:H:i:s.u',
+      'language' => 'de-de',
+      'ajaxConversion'=>true,
+      'asyncRequest' => true,
+      'widgetOptions' => [
+        	'pluginOptions' => [
+          		'autoclose' => true, 'value' => substr($model->von,0,5),
+          ],
+          'pluginEvents' => [
+          ],
+          'defaultOptions' => [
+//              'style' => 'height: 25px;width:10em;',
+          ],
+    	],
+    ])->label('Von:') ?>
+
+    <?= $form->field($model, 'bis')->widget(DateControl::classname(),[
+      'type'=>DateControl::FORMAT_TIME,
+      'displayFormat' => 'php:H:i',
+      'saveFormat' => 'php:H:i:s.u',
+      'language' => 'de-de',
+      'ajaxConversion'=>true,
+      'asyncRequest' => true,
+      'widgetOptions' => [
+        	'pluginOptions' => [
+          		'autoclose' => true, 'value' => substr($model->bis,0,5),
+          ],
+          'pluginEvents' => [
+          ],
+          'defaultOptions' => [
+//              'style' => 'height: 25px;width:10em;',
+          ],
+    	],
+    ])->label('Bis:') ?>
+
+    <?= $form->field($model, 'tagesName')->textInput() ?>
+
+    <div class="form-group">
+        <?= Html::submitButton(Yii::t('app', 'Save'), ['class' => 'btn btn-success']) ?>
+    </div>
+
+    <?php ActiveForm::end(); ?>
+
+</div>

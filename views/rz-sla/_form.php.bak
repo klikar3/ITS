@@ -1,0 +1,33 @@
+<?php
+
+use yii\helpers\ArrayHelper;
+use yii\helpers\Html;
+use yii\widgets\ActiveForm;
+
+use app\models\RzSysteme
+
+/* @var $this yii\web\View */
+/* @var $model app\models\rzSLAs */
+/* @var $form yii\widgets\ActiveForm */
+?>
+
+<div class="rz-slas-form">
+
+    <?php $form = ActiveForm::begin(); ?>
+
+    <?= $form->field($model, 'system_id')->dropDownList(
+            ArrayHelper::map(RzSysteme::find()->all(),'SId','System'),
+            ['prompt'=>'Select...']
+        ) ?>
+
+    <?= $form->field($model, 'name')->textInput() ?>
+
+    <?= $form->field($model, 'description')->textInput() ?>
+
+    <div class="form-group">
+        <?= Html::submitButton(Yii::t('app', 'Save'), ['class' => 'btn btn-success']) ?>
+    </div>
+
+    <?php ActiveForm::end(); ?>
+
+</div>

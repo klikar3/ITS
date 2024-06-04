@@ -1,0 +1,14 @@
+<?php
+$this->breadcrumbs=array(
+	'Rz Reports'=>array('index'),
+	'Create',
+);
+
+$this->menu=array(
+	array('label'=>'Eintr&auml;ge verwalten', 'url'=>array('admin')),
+);
+?>
+
+<h1>Neuen Eintrag im RZ-Report erstellen</h1>
+
+<?php echo $this->renderPartial('_form', array('model'=>$model)); ?>
