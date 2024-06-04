@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <system.webServer>
+        <handlers>
+            <remove name="php_5.6.15_via_FastCGI" />
+            <remove name="PHP_via_FastCGI" />
+            <add name="php_5.6.15_via_FastCGI" path="*.php" verb="*" modules="FastCgiModule" scriptProcessor="C:\php5.6.15\php-cgi.exe|-c C:\php5.6.15\php.ini" resourceType="Either" requireAccess="Script" />
+        </handlers>
+        <defaultDocument>
+            <files>
+                <add value="index.php" />
+            </files>
+        </defaultDocument>
+        <rewrite>
+          <rules>
+            <rule name="Hide Yii Index" stopProcessing="true">
+              <match url="." ignoreCase="false" />
+              <conditions>
+              <add input="{REQUEST_FILENAME}" matchType="IsFile" ignoreCase="false" negate="true" />
+              <add input="{REQUEST_FILENAME}" matchType="IsDirectory" ignoreCase="false" negate="true" />
+              </conditions>
+              <action type="Rewrite" url="index.php" appendQueryString="true" />
+            </rule> 
+          </rules>
+        </rewrite>
+        <staticContent>
+            <mimeMap fileExtension=".woff" mimeType="application/octet-stream" />
+            <mimeMap fileExtension=".woff2" mimeType="application/octet-stream" />
+        </staticContent>
+      </system.webServer>
+</configuration>
